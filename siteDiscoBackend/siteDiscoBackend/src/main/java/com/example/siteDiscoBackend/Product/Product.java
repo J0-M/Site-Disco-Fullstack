@@ -35,7 +35,6 @@ public class Product {
             joinColumns = @JoinColumn(name="product_id"),
             inverseJoinColumns = @JoinColumn(name="band_id")
     )
-    @JsonIgnoreProperties("products")
     private Set<Band> bands = new HashSet<>();
 
     @ManyToOne
