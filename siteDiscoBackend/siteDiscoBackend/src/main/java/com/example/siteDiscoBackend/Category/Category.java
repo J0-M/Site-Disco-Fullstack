@@ -1,6 +1,8 @@
 package com.example.siteDiscoBackend.Category;
 
 //import com.example.siteDiscoBackend.Product.Product;
+import com.example.siteDiscoBackend.Product.Product;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -25,8 +27,8 @@ public class Category {
 
     private String name;
 
-    //@OneToMany(mappedBy = "category")
-    //private Set<Product> products = new HashSet<>();
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products = new HashSet<>();
 
     public Category(CategoryRequestDTO data){
         this.name = data.name();

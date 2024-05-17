@@ -3,6 +3,8 @@ package com.example.siteDiscoBackend.Controllers;
 
 import com.example.siteDiscoBackend.Band.Band;
 import com.example.siteDiscoBackend.Band.BandRepository;
+import com.example.siteDiscoBackend.Category.Category;
+import com.example.siteDiscoBackend.Category.CategoryRepository;
 import com.example.siteDiscoBackend.Product.Product;
 import com.example.siteDiscoBackend.Product.ProductRepository;
 import com.example.siteDiscoBackend.Product.ProductRequestDTO;
@@ -29,10 +31,15 @@ public class ProductController {
     @Autowired
     private BandRepository bandRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Object> saveProduct(@RequestBody ProductRequestDTO data){
-        Product productData = new Product(data);
+        Category category = categoryRepository.findById(data.category())
+                            .orElseThrow(() -> new RuntimeException("Category Not Found With Id: " + data.category()));
+        Product productData = new Product(data, category);
 
         Set<Band> bands = data.bands().stream()
                 .map(bandId -> bandRepository.findById(bandId)
@@ -78,6 +85,9 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
         }
 
+        Category category = categoryRepository.findById(productRequest.category())
+                .orElseThrow(() -> new RuntimeException("Category Not Found With Id: " + productRequest.category()));
+
         var product = productFound.get();
         BeanUtils.copyProperties(productRequest, product);
 
@@ -87,6 +97,9 @@ public class ProductController {
                 .collect(Collectors.toSet());
 
         product.setBands(bands);
+        product.setCategory(category);
+
+        repository.save(product);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(getProduct(id));
     }

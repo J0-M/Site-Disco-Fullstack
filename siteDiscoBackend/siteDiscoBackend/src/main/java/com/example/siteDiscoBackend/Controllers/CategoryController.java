@@ -41,15 +41,20 @@ public class CategoryController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getAllCategories(@PathVariable(value="id") UUID id){
+    public ResponseEntity<Object> getCategorie(@PathVariable(value="id") UUID id){
         Optional<Category> categoryFound = repository.findById(id);
 
         if(categoryFound.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(categoryFound);
+        Category category = categoryFound.get();
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO(category);
+
+        return ResponseEntity.status(HttpStatus.OK).body(categoryResponseDTO);
     }
+
+
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")

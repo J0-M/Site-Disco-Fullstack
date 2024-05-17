@@ -3,6 +3,7 @@ package com.example.siteDiscoBackend.Product;
 import com.example.siteDiscoBackend.Band.Band;
 import com.example.siteDiscoBackend.Category.Category;
 import com.example.siteDiscoBackend.Genre.Genre;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,17 +35,19 @@ public class Product {
             joinColumns = @JoinColumn(name="product_id"),
             inverseJoinColumns = @JoinColumn(name="band_id")
     )
+    @JsonIgnoreProperties("products")
     private Set<Band> bands = new HashSet<>();
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;*/
+    private Category category;
 
-    public Product(ProductRequestDTO data){
+    public Product(ProductRequestDTO data, Category category){
         this.name = data.name();
         this.image = data.image();
         this.description = data.description();
         this.price = data.price();
+        this.category = category;
     }
 
 }

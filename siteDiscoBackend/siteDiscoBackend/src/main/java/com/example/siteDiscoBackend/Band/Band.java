@@ -2,6 +2,7 @@ package com.example.siteDiscoBackend.Band;
 
 import com.example.siteDiscoBackend.Genre.Genre;
 import com.example.siteDiscoBackend.Product.Product;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
