@@ -1,6 +1,8 @@
 package com.example.siteDiscoBackend.Controllers;
 
 
+import com.example.siteDiscoBackend.Band.Band;
+import com.example.siteDiscoBackend.Band.BandRepository;
 import com.example.siteDiscoBackend.Product.Product;
 import com.example.siteDiscoBackend.Product.ProductRepository;
 import com.example.siteDiscoBackend.Product.ProductRequestDTO;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,10 +26,20 @@ public class ProductController {
     @Autowired
     private ProductRepository repository;
 
+    @Autowired
+    private BandRepository bandRepository;
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Object> saveProduct(@RequestBody ProductRequestDTO data){
         Product productData = new Product(data);
+
+        Set<Band> bands = data.bands().stream()
+                .map(bandId -> bandRepository.findById(bandId)
+                        .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId)))
+                .collect(Collectors.toSet());
+
+        productData.setBands(bands);
         repository.save(productData);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Product Saved Sucessfully!!");
@@ -49,7 +62,10 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(productFound);
+        Product product = productFound.get();
+        ProductResponseDTO productResponseDTO = new ProductResponseDTO(product);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productResponseDTO);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -65,7 +81,14 @@ public class ProductController {
         var product = productFound.get();
         BeanUtils.copyProperties(productRequest, product);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(product));
+        Set<Band> bands = productRequest.bands().stream()
+                .map(bandId -> bandRepository.findById(bandId)
+                        .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId)))
+                .collect(Collectors.toSet());
+
+        product.setBands(bands);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(getProduct(id));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

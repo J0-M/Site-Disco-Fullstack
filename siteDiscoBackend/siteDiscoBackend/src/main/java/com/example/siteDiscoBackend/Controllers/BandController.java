@@ -84,7 +84,14 @@ public class BandController {
         var band = bandFound.get();
         BeanUtils.copyProperties(bandRequest, band);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(band));
+        Set<Genre> genres = bandRequest.genres().stream()
+                .map(genreId -> genreRepository.findById(genreId)
+                        .orElseThrow(() -> new RuntimeException("Genre not found with ID: " + genreId)))
+                .collect(Collectors.toSet());//função para assosiação de band e genre
+
+        band.setGenres(genres);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(getBand(id));
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

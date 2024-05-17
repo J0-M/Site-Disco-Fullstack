@@ -1,6 +1,7 @@
 package com.example.siteDiscoBackend.Band;
 
 import com.example.siteDiscoBackend.Genre.Genre;
+import com.example.siteDiscoBackend.Product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,9 @@ public class Band {
             inverseJoinColumns = @JoinColumn(name="genre_id")
     )
     private Set<Genre> genres = new HashSet<>();
+
+    @ManyToMany(mappedBy = "bands")
+    private Set<Product> products = new HashSet<>();
 
     public Band(BandRequestDTO data){
         this.name = data.name();

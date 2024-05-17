@@ -2,9 +2,12 @@ package com.example.siteDiscoBackend.Product;
 
 import com.example.siteDiscoBackend.Band.Band;
 import com.example.siteDiscoBackend.Category.Category;
+import com.example.siteDiscoBackend.Genre.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name="products")
@@ -25,11 +28,15 @@ public class Product {
     private String description;
     private float price;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "band_id")
-    private Band band;
+    @ManyToMany
+    @JoinTable(
+            name = "product_band",
+            joinColumns = @JoinColumn(name="product_id"),
+            inverseJoinColumns = @JoinColumn(name="band_id")
+    )
+    private Set<Band> bands = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;*/
 
