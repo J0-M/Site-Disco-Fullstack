@@ -1,0 +1,35 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 0;
+}
+
+.card img {
+    border-radius: 8px 8px 0 0;
+    width: 250px;
+    height: 200px;
+}
+
+.card button {
+    position: inherit;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.updateButton {
+    background-color: #64d131;
+    color: #e7e5e5;
+    margin-bottom: auto;
+}
+
+.deleteButton {
+    background-color: #d13131;
+    color: #e7e5e5;
+    margin-bottom: auto;
+}
