@@ -25,6 +25,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("siteDisco")
                     .withSubject(user.getLogin())
+                    .withClaim("userId", user.getId().toString())//o JWT não tem suporte para UUID, então é necessário transformar em string
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
             return token;
@@ -41,7 +42,8 @@ public class TokenService {
                     .withIssuer("siteDisco")
                     .build()
                     .verify(token)
-                    .getSubject();
+                    .getClaim("userId")
+                    .asString();//só é possível retornar o id ou o login, para retornar os dois, é necessário usar um objeto especial que englobe ambos
         } catch (JWTVerificationException exception){
             return "";
         }
