@@ -52,14 +52,53 @@ A aplicação possui:
 
 ## Como Executar?
 
-0. Clone o repositório:
+1. Clone o repositório:
+`
+git clone https://github.com/J0-M/Site-Disco-Fullstack.git
 `
 
+### 2. Backend (Spring Boot)
+2.1 Entre na pasta `backend`:
+`cd backend`
+
+2.2 Configure o banco em `src/main/resources/application.properties`:
+`
+spring.datasource.url=jdbc:postgresql://localhost:5432/seu_banco
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=update
 `
 
-### 1. Backend (Spring Boot)
-1.1 Entre na pasta `backend`:
-`
-cd backend
-`
+2.3 Rode a aplicação Backend:
+`mvn spring-boot:run`
 
+2.4 A API estará disponível na porta:
+`http://localhost:8080`
+
+### 3. Frontend (React)
+3.1 Entre na pasta frontend:
+`cd frontend`
+
+3.2 Instale as dependências:
+`npm install`
+
+3.3 Rode o projeto:
+`npm start`
+
+3.4 Acesse no navegador:
+`http://localhost:3000`
+
+AVISO: O frontend está configurado para consumir a API do backend em `http://localhost:8080`, se mudar a porta/URL do backend, ajuste o baseURL no arquivo `frontend/src/services/api.js`.
+
+# Aprendizados
+- Desenvolvimento full stack (Java + React)
+- Criação de API REST com autenticação JWT
+- Integração do frontend React com o backend via Axios
+- Proteção de rotas no React com base em autenticação
+- Organização de código em camadas (backend) e componentes (frontend)
+
+# Próximos Passos
+- Melhorar layout do frontend.
+- Adicionar paginação e busca no frontend.
+- Criar carrinho de compras com bandas/produtos.
+- Implementar documentação da API (Swagger).
