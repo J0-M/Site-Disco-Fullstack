@@ -4,7 +4,7 @@
 
 ### Front-end
 [Raquel Real Haagsma](https://github.com/rhaagsma)
-(Alan Kageyama Nakamura](https://github.com/Numseinemmeunome) 
+[Alan Kageyama Nakamura](https://github.com/Numseinemmeunome) 
 
 # Site Disco – Spring Boot + React
 ## Sobre o Projeto
