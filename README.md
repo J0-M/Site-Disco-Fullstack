@@ -1,6 +1,10 @@
 ## Contribuidores
-Back-end: https://github.com/J0-M
-Front-end: https://github.com/rhaagsma , https://github.com/Numseinemmeunome
+### Back-end 
+[João Marcos Avancini](https://github.com/J0-M)
+
+### Front-end
+[Raquel Real Haagsma](https://github.com/rhaagsma)
+(Alan Kageyama Nakamura](https://github.com/Numseinemmeunome) 
 
 # Site Disco – Spring Boot + React
 ## Sobre o Projeto
