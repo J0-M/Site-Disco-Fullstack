@@ -3,7 +3,7 @@
 [João Marcos Avancini](https://github.com/J0-M)
 
 ### Front-end
-[Raquel Real Haagsma](https://github.com/rhaagsma)
+[Raquel Real Haagsma](https://github.com/rhaagsma)  
 [Alan Kageyama Nakamura](https://github.com/Numseinemmeunome) 
 
 # Site Disco – Spring Boot + React
