@@ -20,7 +20,7 @@ A aplicação possui:
 - Spring Boot
 - Spring Security (JWT)
 - Spring Data JPA
-- PostgreSQL / H2
+- PostgreSQL
 - Maven
 
 ### Frontend
